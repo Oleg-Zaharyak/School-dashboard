@@ -1,3 +1,6 @@
+import Image from "next/image";
+import Link from "next/link";
+
 const menuItems = [
   {
     title: "MENU",
@@ -112,3 +115,29 @@ const menuItems = [
     ],
   },
 ];
+
+const Menu = () => {
+  return (
+    <div className="mt-3 text-xs h-[calc(100%-50px)] overflow-scroll">
+      {menuItems.map((el) => (
+        <div className="flex flex-col gap-[6px]" key={el.title}>
+          <span className="hidden lg:block text-gray-400 font-light my-3">
+            {el.title}
+          </span>
+          {el.items.map((item) => (
+            <Link
+              href={item.href}
+              key={item.label}
+              className="flex items-center justify-center lg:justify-start gap-4 py-[6px] text-gray-500"
+            >
+              <Image src={item.icon} alt="" width={18} height={18} />
+              <span className="hidden lg:block">{item.label}</span>
+            </Link>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default Menu;
