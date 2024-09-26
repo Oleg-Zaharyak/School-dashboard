@@ -5,9 +5,10 @@ import { role } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 import { studentsData } from "@/lib/data";
+import FormModal from "@/components/FormModal";
 
 type Student = {
-  id: string;
+  id: number;
   studentId: string;
   name: string;
   email?: string;
@@ -77,9 +78,7 @@ const StudentListPage = () => {
             </button>
           </Link>
           {role === "admin" && (
-            <button className="w-7 h-7 flex items-center justify-center bg-purple rounded-full">
-              <Image src="/delete.png" alt="" width={16} height={16} />
-            </button>
+            <FormModal table="student" type="delete" id={item.id} />
           )}
         </div>
       </td>
@@ -100,11 +99,7 @@ const StudentListPage = () => {
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-yellow">
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
-            {role === "admin" && (
-              <button className="w-8 h-8 flex items-center justify-center rounded-full bg-yellow">
-                <Image src="/plus.png" alt="" width={14} height={14} />
-              </button>
-            )}
+            {role === "admin" && <FormModal table="student" type="create" />}
           </div>
         </div>
       </div>
