@@ -130,6 +130,7 @@ const TeacherForm = ({
         <div className="flex flex-col gap-2 w-full md:w-1/4">
           <label className="text-xs text-gray-500">Sex</label>
           <select
+            defaultValue={data?.sex}
             className=" ring-[1.5px] ring-gray-500 p-2 rounded-md text-sm w-full"
             {...register("sex")}
           >

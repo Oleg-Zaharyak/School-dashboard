@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import InputField from "../InputField";
 import Image from "next/image";
+import SelectInputField from "../SelectInputField";
 
 const schema = z.object({
   username: z
@@ -27,7 +28,7 @@ const schema = z.object({
 
 type Inputs = z.infer<typeof schema>;
 
-const StudentForm = ({
+const ParentForm = ({
   type,
   data,
 }: {
@@ -49,8 +50,7 @@ const StudentForm = ({
   return (
     <form className="flex flex-col gap-8" onSubmit={onSubmit}>
       <h1 className="text-xl font-semibold">
-        {" "}
-        {type === "update" ? "Update student data" : "Create a new student"}
+        {type === "update" ? "Update parent data" : "Create a new parent"}
       </h1>
       <span className="text-xs text-gray-400 font-medium">
         Authentication Information
@@ -127,39 +127,14 @@ const StudentForm = ({
           register={register}
           error={errors?.birthday}
         />
-
-        <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <label className="text-xs text-gray-500">Sex</label>
-          <select
-            defaultValue={data?.sex}
-            className=" ring-[1.5px] ring-gray-500 p-2 rounded-md text-sm w-full"
-            {...register("sex")}
-          >
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
-          {errors.sex?.message && (
-            <p className="text-xs text-red-400">
-              {errors.sex.message.toString()}
-            </p>
-          )}
-        </div>
-        <div className="flex flex-col gap-2 w-full md:w-1/4 justify-center">
-          <label
-            className="text-xs text-gray-500 flex items-center gap-2 cursor-pointer"
-            htmlFor="img"
-          >
-            <Image src="/upload.png" alt="" width={28} height={28} />
-            <span className="">Upload a photo</span>
-          </label>
-          <input id="img" type="file" {...register("img")} className="hidden" />
-
-          {errors.img?.message && (
-            <p className="text-xs text-red-400">
-              {errors.img.message.toString()}
-            </p>
-          )}
-        </div>
+        <SelectInputField
+          label="Sex"
+          name="sex"
+          defaultValue={data?.sex}
+          register={register}
+          error={errors?.sex}
+          optionArray={["male", "female"]}
+        />
       </div>
       <button className="bg-blue-400 text-white rounded-md p-2">
         {type === "create" ? "Create" : "Update"}
@@ -168,4 +143,4 @@ const StudentForm = ({
   );
 };
 
-export default StudentForm;
+export default ParentForm;
