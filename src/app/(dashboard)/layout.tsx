@@ -1,5 +1,6 @@
 import Menu from "@/components/Menu";
 import NavBar from "@/components/NavBar";
+import { role } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 

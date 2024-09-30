@@ -1,6 +1,6 @@
+import { currentUser } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
-import { role } from "../lib/data";
 
 const menuItems = [
   {
@@ -9,7 +9,7 @@ const menuItems = [
       {
         icon: "/home.png",
         label: "Home",
-        href: `/${role}`,
+        href: "/",
         visible: ["admin", "teacher", "student", "parent"],
       },
       {
@@ -117,7 +117,9 @@ const menuItems = [
   },
 ];
 
-const Menu = () => {
+const Menu = async () => {
+  const user = await currentUser();
+  const role = user?.publicMetadata.role as string;
   return (
     <div className="mt-3 text-xs h-[calc(100%-50px)] overflow-scroll">
       {menuItems.map((el) => (
