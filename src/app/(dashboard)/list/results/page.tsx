@@ -4,7 +4,7 @@ import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
-import { currentUserId, role } from "@/lib/utils";
+import { auth } from "@clerk/nextjs/server";
 import { Prisma, Result } from "@prisma/client";
 import Image from "next/image";
 type ResultList = {
@@ -18,6 +18,10 @@ type ResultList = {
   className: string;
   startTime: Date;
 };
+
+const { userId, sessionClaims } = auth();
+const role = (sessionClaims?.metadata as { role?: string })?.role;
+const currentUserId = userId;
 
 const columns = [
   { header: "Title", accessor: "title" },
@@ -88,6 +92,8 @@ const ResultsListPage = async ({
 }: {
   searchParams: { [key: string]: string | undefined };
 }) => {
+
+
   const { page, ...queryParams } = searchParams;
   const p = page ? parseInt(page) : 1;
 

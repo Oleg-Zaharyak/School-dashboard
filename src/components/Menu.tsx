@@ -1,5 +1,4 @@
-import { role } from "@/lib/utils";
-import { currentUser } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,7 +9,7 @@ const menuItems = [
       {
         icon: "/home.png",
         label: "Home",
-        href: `/${role}`,
+        href: `/`,
         visible: ["admin", "teacher", "student", "parent"],
       },
       {
